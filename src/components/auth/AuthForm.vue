@@ -50,6 +50,7 @@ export default defineComponent({
         await router.push('/') 
       } catch (error) {
         let err = errorFunc(error as number);
+         $q.loading.hide();
             $q.notify({
               type: 'negative',
               message: `${err}`,

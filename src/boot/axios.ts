@@ -1,3 +1,4 @@
+
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { boot } from 'quasar/wrappers';
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
@@ -35,16 +36,28 @@ api.interceptors.request.use(config => {
   return config
 })
 
-api.interceptors.response.use(undefined, error => { 
-  if (Loading.isActive) {
-    Loading.hide()
+api.interceptors.response.use(response => {
+  return response;
+}, error => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  if (error && error.message === 'Request failed with status code 401') {
+    localStorage.removeItem('token');
+    const Router = useRouter();
+    void Router.push('/auth');
   }
 
-  const hasErrResponse = (error as { response: { [key: string]: string } }).response;
-  if(hasErrResponse.status === '401') {
-    const Router = useRouter();
-    void Router.push('/auth?message=auth')
-  }
+// api.interceptors.response.use(undefined, error => { 
+//   if (Loading.isActive) {
+//     Loading.hide()
+//   }
+
+//   const hasErrResponse = (error as { response: { [key: string]: string } }).response;
+//   if(hasErrResponse.status === '401') {
+//     localStorage.removeItem('token')
+//     const Router = useRouter();
+//     console.log('auth')
+//     void Router.push('/auth')
+//   }
   return Promise.reject(error);
 });
 

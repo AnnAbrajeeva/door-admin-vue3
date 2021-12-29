@@ -37,7 +37,7 @@ export default route<StateInterface>(function (/* { store, ssrContext } */) {
   Router.beforeEach((to, from, next) => {
     const token = localStorage.getItem('token')
     const isAuthorized = !!token
-    if (to.path !== '/auth' && !isAuthorized) next('auth')
+    if (to.path !== '/auth' && !isAuthorized) next('/auth')
     else next()
   })
 

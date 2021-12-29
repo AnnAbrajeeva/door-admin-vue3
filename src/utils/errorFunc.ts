@@ -7,7 +7,7 @@ const errors: Array<IErrors> = [
     },
     {
         code: 400,
-        value: 'Ошибка авторизации',
+        value: 'Ошибка',
     }   
 ] 
 
@@ -18,7 +18,9 @@ export function errorFunc(code: number): string {
         
         if(error.code === code) {
             msg = error.value
-        }     
+        } else {
+            msg = 'Ошибка'
+        }    
     })
     
     return msg;

@@ -7,7 +7,7 @@
       row-key="name"
       :dense="$q.screen.lt.md"
       separator="cell"
-      :table-header-class="header"
+      table-header-class="header"
       :table-header-style="{ backgroundColor: 'rgb(219 219 219)' }"
       no-data-label="Заказов пока нет"
     >
@@ -44,7 +44,7 @@
             round
             flat
             color="grey"
-            @click="deleteOrder(props)"
+            @click="deleteOrder(row.row)"
             icon="delete"
           ></q-btn>
           <q-btn
@@ -53,7 +53,7 @@
             round
             flat
             color="grey"
-            @click="printOrder(props)"
+            @click="printOrder(row.row)"
             icon="print"
           ></q-btn>
         </q-td>
@@ -153,7 +153,6 @@ export default defineComponent({
     }
 
     function showOrder(item: IOrdersResponse): void {
-      console.log(item)
       void router.push({
         name: 'Order',
         params: {
